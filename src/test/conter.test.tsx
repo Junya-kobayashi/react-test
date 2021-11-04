@@ -6,15 +6,30 @@ afterEach(cleanup);
 
 // const sel = (id:string) => `[data-testid="${id}"]`
 
+it('+ボタン, -ボタンが表示されているかのテスト', ()=> {
+  const {queryByTestId, getByTestId} = render(
+    <Counter />,
+  );
 
-it('counter test on text', () => {
+
+  expect(queryByTestId(/increment-button/)?.textContent).toBe("+");
+  expect(queryByTestId(/decrement-button/)?.textContent).toBe("-");
+
+})
+
+
+it('+ボタンをクリックしたら+1された数字が表示されるか', () => {
     const {queryByTestId, getByTestId} = render(
       <Counter />,
     );
-  
-    expect(queryByTestId(/count-number/i)?.textContent).toBe("0");
+    /** incrementが呼ばれているかのテスト */
+    const countNumberStr :string | null | undefined = queryByTestId(/count-number/i)?.textContent
+    expect(countNumberStr).not.toBeNull();
+    expect(countNumberStr).not.toBeUndefined();
+
+    const countNumber : number = Number(countNumberStr)
     fireEvent.click(getByTestId(/increment/i));
-    expect(queryByTestId(/count-number/i)?.textContent).toBe("1");
+    expect(queryByTestId(/count-number/i)?.textContent).toBe(String(countNumber+ 1));
 
   });
 
