@@ -1,6 +1,6 @@
 import React from "react";
 import { cleanup, fireEvent, render } from "@testing-library/react";
-import Counter from "../components/counter"
+import Counter, {onIncrement} from "../components/counter"
 
 afterEach(cleanup);
 
@@ -10,8 +10,6 @@ it('+ボタン, -ボタンが表示されているかのテスト', ()=> {
   const {queryByTestId, getByTestId} = render(
     <Counter />,
   );
-
-
   expect(queryByTestId(/increment-button/)?.textContent).toBe("+");
   expect(queryByTestId(/decrement-button/)?.textContent).toBe("-");
 
